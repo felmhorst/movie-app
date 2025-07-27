@@ -1,0 +1,50 @@
+.nav {
+  flex: 0 0 fit-content;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  overflow: hidden;
+  padding: 16px;
+  background-color: var(--color-surface);
+  border-right: solid 1px var(--color-border);
+}
+
+.ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+}
+
+.li {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  color: var(--color-on-surface-less);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.link:hover {
+  color: var(--color-on-surface);
+}
+.link__active {
+  background-color: var(--color-primary);
+  color: var(--color-on-surface);
+}
+
+/*# sourceMappingURL=Sidebar.module.css.map */

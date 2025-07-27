@@ -1,0 +1,31 @@
+.section {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.title {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  color: var(--color-on-surface-less);
+  font-weight: 500;
+  font-size: 1em;
+  margin-bottom: 16px;
+
+  &::after {
+    content: "";
+    flex: 1 1 auto;
+    border-top: solid 1px var(--color-border);
+  }
+}
+
+.content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
