@@ -9,7 +9,6 @@ export default function AppLayout({
         <div className={styles.page}>
             <Sidebar/>
             <main className={styles.main}>
-
                 {children}
             </main>
         </div>
