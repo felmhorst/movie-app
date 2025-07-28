@@ -1,0 +1,36 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.option {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: solid 1px var(--color-border);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 0;
+  height: 0;
+  opacity: 0;
+
+  &:checked ~ .checkmark {
+    visibility: visible;
+  }
+}
+
+.checkmark {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px;
+  visibility: hidden;
+}

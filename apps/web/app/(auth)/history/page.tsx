@@ -1,9 +1,9 @@
 "use client";
 
 import {useEffect, useState} from "react";
-import {api} from "../../../utility/api";
-import {MovieThumbnail} from "../../../components/MovieThumbnail/MovieThumbnail";
-import {MovieSection} from "../../../components/MovieSection/MovieSection";
+import {api} from "@/utility/api";
+import {MovieThumbnail} from "@/components/MovieThumbnail/MovieThumbnail";
+import {MovieSection} from "@/components/MovieSection/MovieSection";
 import moment from "moment";
 
 export default function History() {

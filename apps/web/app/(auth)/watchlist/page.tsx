@@ -1,9 +1,9 @@
 "use client";
 
-import {MovieThumbnail} from "../../../components/MovieThumbnail/MovieThumbnail";
-import {MovieSection} from "../../../components/MovieSection/MovieSection";
+import {MovieThumbnail} from "@/components/MovieThumbnail/MovieThumbnail";
+import {MovieSection} from "@/components/MovieSection/MovieSection";
 import {useEffect, useState} from "react";
-import {api} from "../../../utility/api";
+import {api} from "@/utility/api";
 
 export default function Watchlist() {
     const [movies, setMovies] = useState([]);

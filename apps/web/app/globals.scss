@@ -7,6 +7,7 @@
   --color-primary: #9444B4;
 
   --border-radius-md: 8px;
+  --box-shadow-md: 0 4px 8px rgba(0, 0, 0, .15);
 }
 
 html,
@@ -40,4 +41,10 @@ a {
 
 h1 {
   font-size: 1.5em;
+  margin-bottom: 16px;
+}
+
+p {
+  color: var(--color-on-surface-less);
+  line-height: 1.3em;
 }
