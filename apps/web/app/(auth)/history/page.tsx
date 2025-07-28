@@ -2,7 +2,7 @@
 
 import {useEffect, useState} from "react";
 import {api} from "@/utility/api";
-import {MovieThumbnail} from "@/components/MovieThumbnail/MovieThumbnail";
+import {MoviePreview} from "@/components/MoviePreview/MoviePreview";
 import {MovieSection} from "@/components/MovieSection/MovieSection";
 import moment from "moment";
 
@@ -43,10 +43,9 @@ export default function History() {
                     key={i}
                     title={section.title}>
                     {section.movies.map((movie, j) => (
-                        <MovieThumbnail
+                        <MoviePreview
                             key={j}
-                            poster_path={movie.posterPath}
-                            title={movie.title}/>
+                            movie={movie}/>
                     ))}
                 </MovieSection>
             ))}

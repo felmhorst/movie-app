@@ -4,7 +4,14 @@
   width: auto;
   aspect-ratio: 2/3;
   background-color: var(--color-surface);
+  border: none;
   border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: .4s ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+  }
 }
 
 .image {

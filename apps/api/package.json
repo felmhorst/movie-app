@@ -1,6 +1,7 @@
 {
   "name": "api",
   "version": "1.0.0",
+  "main": "src/index.ts",
   "scripts": {
     "dev": "nodemon --watch src --exec ts-node src/index.ts",
     "build": "tsc",
@@ -10,8 +11,10 @@
   "dependencies": {
     "@types/cors": "^2.8.19",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^5.1.0",
-    "moment": "^2.30.1"
+    "moment": "^2.30.1",
+    "mongoose": "^8.16.5"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",

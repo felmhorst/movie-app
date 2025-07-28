@@ -3,6 +3,8 @@ This is a monorepo developed with [Turborepo](https://turborepo.com/)
 
 Links:
 - [TMDB](https://developer.themoviedb.org/reference/movie-details)
+- [OMDb](https://www.omdbapi.com/)
+- [IMDb](https://developer.imdb.com/)
 
 
 ## What's inside?

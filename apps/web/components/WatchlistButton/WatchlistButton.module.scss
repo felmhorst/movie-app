@@ -1,0 +1,16 @@
+.button {
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: unset;
+  color: var(--color-on-surface);
+  border: solid 1px var(--color-primary);
+  border-radius: 50%;
+
+  &__active {
+    background-color: var(--color-primary);
+  }
+}

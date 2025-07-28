@@ -1,6 +1,6 @@
 "use client";
 
-import {MovieThumbnail} from "@/components/MovieThumbnail/MovieThumbnail";
+import {MoviePreview} from "@/components/MoviePreview/MoviePreview";
 import {MovieSection} from "@/components/MovieSection/MovieSection";
 import {useEffect, useState} from "react";
 import {api} from "@/utility/api";
@@ -21,10 +21,9 @@ export default function Watchlist() {
             <h1>Watchlist</h1>
             <MovieSection title={"Kostenlos in deinen Abos"}>
                 {movies.map((movie, index) => (
-                    <MovieThumbnail
+                    <MoviePreview
                         key={index}
-                        title={movie.title}
-                        poster_path={movie.posterPath}/>
+                        movie={movie}/>
                 ))}
             </MovieSection>
         </>
