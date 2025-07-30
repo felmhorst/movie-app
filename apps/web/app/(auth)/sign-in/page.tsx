@@ -7,6 +7,7 @@ import {Form} from "@/components/Form/Form";
 import {signIn} from "@/auth";
 import {Button} from "@/components/Button/Button";
 
+// todo: https://authjs.dev/guides/pages/signin
 export default function SignIn() {
 
     return (

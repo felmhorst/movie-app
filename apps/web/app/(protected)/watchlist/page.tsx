@@ -2,17 +2,19 @@
 
 import {MoviePreview} from "@/components/MoviePreview/MoviePreview";
 import {MovieSection} from "@/components/MovieSection/MovieSection";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function Watchlist() {
     const [movies, setMovies] = useState([]);
 
-    // useEffect(() => {
-    //     api.get("/watchlist")
-    //         .then((e) => {
-    //             setMovies(e.data);
-    //         });
-    // }, []);
+    useEffect(() => {
+        fetch("/api/watchlist")
+            .then((res) => res.json())
+            .then((data) => {
+                const {movies} = data;
+                setMovies(movies);
+            });
+    }, []);
 
 
     return (

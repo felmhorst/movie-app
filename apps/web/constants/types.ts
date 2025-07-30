@@ -1,5 +1,7 @@
 export interface Movie {
+    _id: string;
     title: string;
-    overview: string;
+    summary: string;
     posterPath: string;
+    isOnWatchlist?: boolean;
 }

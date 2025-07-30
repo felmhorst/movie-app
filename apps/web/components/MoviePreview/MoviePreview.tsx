@@ -18,11 +18,11 @@ export const MoviePreview = (props: MoviePreviewProps) => {
         <button
             className={styles.thumbnail}
             onClick={() => openMovieDetails(movie)}>
-            <Image
+            {movie.posterPath ? <Image
                 className={styles.image}
                 src={movie.posterPath}
                 alt={movie.title}
-                fill={true}/>
+                fill={true}/> : movie.title}
         </button>
     );
 };
