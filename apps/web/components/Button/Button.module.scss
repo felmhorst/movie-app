@@ -10,8 +10,30 @@
   cursor: pointer;
   opacity: .8;
   transition: .2s;
+  font-size: 1em;
 
   &:hover {
     opacity: 1;
   }
+
+  &__theme {
+    // primary is the default
+    &_secondary {
+      background-color: unset;
+      border: solid 2px var(--color-primary);
+    }
+  }
+
+  &__width {
+    // fill is the default
+    &_hug {
+      width: auto;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
+}
+
+.icon {
+  margin-right: 8px;
 }

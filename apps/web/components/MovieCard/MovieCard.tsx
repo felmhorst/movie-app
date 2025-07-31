@@ -6,52 +6,29 @@ import Image from "next/image";
 import {WatchlistButton} from "@/components/WatchlistButton/WatchlistButton";
 import {faTimes} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {useContext} from "react";
-import {MovieContext} from "@/contexts/MovieContext";
+import {useMovieStore} from "@/state/useMovieStore";
 
 export const MovieCard = () => {
-    const {
-        movie,
-        isOpen,
-        closeMovieDetails
-    } = useContext(MovieContext);
-
-    function addToWatchlist() {
-        fetch("/api/watchlist", {
-            method: "PUT",
-            body: JSON.stringify({movieId: movie._id})
-        })
-            .then((response) => response.json())
-            .then((data) => console.log(data));
-    }
-
-    function removeFromWatchlist() {
-        fetch("/api/watchlist", {
-            method: "DELETE",
-            body: JSON.stringify({movieId: movie._id})
-        })
-            .then((response) => response.json())
-            .then((data) => console.log(data));
-    }
+    const {selectedMovie, isDetailsOpen, closeMovieDetails, addToWatchlist, removeFromWatchlist} = useMovieStore();
 
     function handleWatchlist() {
-        if (movie.isOnWatchlist)
-            removeFromWatchlist();
+        if (selectedMovie.isOnWatchlist)
+            removeFromWatchlist(selectedMovie);
         else
-            addToWatchlist();
+            addToWatchlist(selectedMovie);
     }
 
-    if (!movie || !isOpen)
+    if (!selectedMovie || !isDetailsOpen)
         return null;
     return (
         <section className={styles.container}>
             <div className={styles.card}>
                 <div className={styles.imageContainer}>
-                    {movie.posterPath ? <Image
+                    {selectedMovie.posterPath ? <Image
                         className={styles.image}
-                        src={movie.posterPath}
+                        src={selectedMovie.posterPath}
                         alt={""}
-                        fill={true}/> : movie.title}
+                        fill={true}/> : selectedMovie.title}
                 </div>
                 <div className={styles.detailsContainer}>
                     <button
@@ -62,11 +39,11 @@ export const MovieCard = () => {
                             icon={faTimes}
                             size={"lg"}/>
                     </button>
-                    <h1>{movie.title}</h1>
-                    <p>{movie.summary}</p>
+                    <h1>{selectedMovie.title}</h1>
+                    <p>{selectedMovie.summary}</p>
                     <Button>Ansehen</Button>
                     <WatchlistButton
-                        isActive={movie.isOnWatchlist}
+                        isActive={selectedMovie.isOnWatchlist}
                         onClick={handleWatchlist}/>
                 </div>
             </div>

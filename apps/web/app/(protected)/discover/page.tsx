@@ -6,26 +6,17 @@ import {MovieSection} from "@/components/MovieSection/MovieSection";
 import {useMovieStore} from "@/state/useMovieStore";
 
 export default function Discover() {
-    const movies = useMovieStore((state) => state.movies);
-    const setMovies = useMovieStore((state) => state.setMovies);
+    const {recommendations, fetchRecommendations} = useMovieStore();
 
     useEffect(() => {
-        if (movies.length > 0)
-            return;
-        fetch("/api/discover", {method: "GET"})
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                const {movies} = data;
-                setMovies(movies);
-            });
-    }, [movies]);
+        fetchRecommendations();
+    }, []);
 
     return (
         <>
             <h1>Discover</h1>
             <MovieSection title={"Recommended"}>
-                {movies.map((movie, index) => (
+                {recommendations.map((movie, index) => (
                     <MoviePreview
                         key={index}
                         movie={movie}/>

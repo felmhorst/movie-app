@@ -3,6 +3,7 @@
 import {useState} from "react";
 import {MoviePreview} from "@/components/MoviePreview/MoviePreview";
 import {MovieSection} from "@/components/MovieSection/MovieSection";
+import {Empty} from "./Empty";
 
 export default function History() {
     const [moviesByMonth, setMoviesByMonth] = useState([]);
@@ -36,6 +37,7 @@ export default function History() {
     return (
         <>
             <h1>History</h1>
+            {moviesByMonth.length === 0 && <Empty/>}
             {moviesByMonth.map((section, i) => (
                 <MovieSection
                     key={i}

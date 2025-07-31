@@ -11,11 +11,13 @@
 }
 
 @media (prefers-color-scheme: light) {
-  --color-background: #F3F4F9;
-  --color-surface: #FFFFFF;
-  --color-border: #D2D2D2;
-  --color-on-surface: #000000;
-  --color-on-surface-less: #656565;
+  :root {
+    --color-background: #F3F4F9;
+    --color-surface: #FFFFFF;
+    --color-border: #D2D2D2;
+    --color-on-surface: #000000;
+    --color-on-surface-less: #656565;
+  }
 }
 
 html,

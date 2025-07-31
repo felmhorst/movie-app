@@ -2,18 +2,14 @@
 
 import {MoviePreview} from "@/components/MoviePreview/MoviePreview";
 import {MovieSection} from "@/components/MovieSection/MovieSection";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
+import {useMovieStore} from "@/state/useMovieStore";
 
 export default function Watchlist() {
-    const [movies, setMovies] = useState([]);
+    const {watchlist, fetchWatchlist} = useMovieStore();
 
     useEffect(() => {
-        fetch("/api/watchlist")
-            .then((res) => res.json())
-            .then((data) => {
-                const {movies} = data;
-                setMovies(movies);
-            });
+        fetchWatchlist();
     }, []);
 
 
@@ -21,7 +17,7 @@ export default function Watchlist() {
         <>
             <h1>Watchlist</h1>
             <MovieSection title={"Kostenlos in deinen Abos"}>
-                {movies.map((movie, index) => (
+                {watchlist.map((movie, index) => (
                     <MoviePreview
                         key={index}
                         movie={movie}/>

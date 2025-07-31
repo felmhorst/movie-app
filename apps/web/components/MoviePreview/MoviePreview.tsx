@@ -2,9 +2,8 @@
 
 import styles from "./MoviePreview.module.css";
 import Image from "next/image";
-import {useContext} from "react";
-import {MovieContext} from "@/contexts/MovieContext";
 import {Movie} from "@/constants/types";
+import {useMovieStore} from "@/state/useMovieStore";
 
 interface MoviePreviewProps {
     movie: Movie;
@@ -12,7 +11,7 @@ interface MoviePreviewProps {
 
 export const MoviePreview = (props: MoviePreviewProps) => {
     const {movie} = props;
-    const {openMovieDetails} = useContext(MovieContext);
+    const {openMovieDetails} = useMovieStore();
 
     return (
         <button
