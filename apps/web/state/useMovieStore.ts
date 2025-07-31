@@ -1,28 +1,33 @@
 import {create} from "zustand";
 import {persist} from "zustand/middleware";
 import {Movie} from "@/constants/types";
+import moment from "moment";
+import {REFETCH_RECOMMENDATIONS_TIMEOUT} from "@/constants/constants";
 
 // todo: refetch after n minutes
 
-interface MovieStore {
-    // recommendations
+interface RecommendationsStore {
     recommendations: Movie[];
     isRecommendationsFetched: boolean;
     fetchRecommendations: () => void;
+}
 
-    // watchlist
+interface WatchlistStore {
     watchlist: Movie[];
     isWatchlistFetched: boolean;
     fetchWatchlist: () => void;
     addToWatchlist: (movie: Movie) => void;
     removeFromWatchlist: (movie: Movie) => void;
+}
 
-    // selected movie
+interface MovieDetailsStore {
     selectedMovie: Movie | null;
     isDetailsOpen: boolean;
     openMovieDetails: (movie: Movie) => void;
     closeMovieDetails: () => void;
+}
 
+interface MovieStore extends RecommendationsStore, WatchlistStore, MovieDetailsStore {
     updateMovieStatus: (movieId: string, isOnWatchlist: boolean) => void;
 }
 
@@ -30,11 +35,12 @@ export const useMovieStore = create<MovieStore>()(
     persist((set, get) => (
         {
             recommendations: [],
-            watchlist: [],
-            selectedMovie: null,
-
             isRecommendationsFetched: false,
+
+            watchlist: [],
             isWatchlistFetched: false,
+
+            selectedMovie: null,
             isDetailsOpen: false,
 
             openMovieDetails: (movie) => {
