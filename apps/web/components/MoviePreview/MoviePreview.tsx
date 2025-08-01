@@ -20,9 +20,9 @@ export const MoviePreview = (props: MoviePreviewProps) => {
         <button
             className={styles.thumbnail}
             onClick={() => openMovieDetails(movie)}>
-            {movie.imageSet?.verticalPoster?.w240 ? <Image
+            {movie.imageSet?.verticalPoster?.w360 ? <Image
                 className={styles.image}
-                src={movie.imageSet?.verticalPoster?.w240}
+                src={movie.imageSet?.verticalPoster?.w360}
                 alt={movie.title}
                 fill={true}/> : movie.title}
         </button>

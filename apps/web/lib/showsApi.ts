@@ -7,12 +7,19 @@ const streamingApiClient = new Client(new Configuration({
     apiKey: RAPID_API_KEY,
 }));
 
-export async function getRecommendedMovies() {
-    const movies = await streamingApiClient.showsApi.getTopShows({
+export async function getRecommendedShows() {
+    const shows = await streamingApiClient.showsApi.getTopShows({
         country: "de",
         service: "netflix",
         showType: "movie",
     });
-    await MOVIE_COLLECTION.insertMany(movies);
-    return movies;
+    await MOVIE_COLLECTION.insertMany(shows);
+    return shows;
+}
+
+export async function searchShowsByTitle(query: string) {
+    return await streamingApiClient.showsApi.searchShowsByTitle({
+        country: "de",
+        title: query
+    });
 }

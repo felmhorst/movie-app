@@ -19,5 +19,5 @@ export const MovieSection = ({
                 {children}
             </div>
         </section>
-    )
-}
+    );
+};

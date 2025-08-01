@@ -1,0 +1,47 @@
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  background-color: var(--color-surface);
+  border: solid 1px var(--color-border);
+  border-radius: 100px;
+
+  &:focus-within {
+    outline: solid 2px var(--color-primary);
+  }
+}
+
+.input {
+  flex: 1 1 auto;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.icon {
+  flex: 0 0 auto;
+  padding: 8px 0 8px 8px;
+  color: var(--color-on-surface-less);
+}
+
+.clear_button {
+  flex: 0 0 auto;
+  display: block;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  border-radius: 0 100px 100px 0;
+  color: var(--color-on-surface-less);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-on-surface);
+  }
+}

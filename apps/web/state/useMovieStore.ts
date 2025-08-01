@@ -1,8 +1,6 @@
 import {create} from "zustand";
 import {persist} from "zustand/middleware";
 import {Movie} from "@/constants/types";
-import moment from "moment";
-import {REFETCH_RECOMMENDATIONS_TIMEOUT} from "@/constants/constants";
 
 // todo: refetch after n minutes
 
@@ -20,6 +18,12 @@ interface WatchlistStore {
     removeFromWatchlist: (movie: Movie) => void;
 }
 
+interface SearchStore {
+    query: string;
+    searchResults: Movie[];
+    searchMovie: (query: string) => void;
+}
+
 interface MovieDetailsStore {
     selectedMovie: Movie | null;
     isDetailsOpen: boolean;
@@ -27,7 +31,7 @@ interface MovieDetailsStore {
     closeMovieDetails: () => void;
 }
 
-interface MovieStore extends RecommendationsStore, WatchlistStore, MovieDetailsStore {
+interface MovieStore extends RecommendationsStore, WatchlistStore, SearchStore, MovieDetailsStore {
     updateMovieStatus: (movieId: string, isOnWatchlist: boolean) => void;
 }
 
@@ -39,6 +43,9 @@ export const useMovieStore = create<MovieStore>()(
 
             watchlist: [],
             isWatchlistFetched: false,
+
+            query: "",
+            searchResults: [],
 
             selectedMovie: null,
             isDetailsOpen: false,
@@ -78,13 +85,11 @@ export const useMovieStore = create<MovieStore>()(
             },
 
             addToWatchlist(movie) {
-                console.log(movie);
                 fetch("/api/watchlist", {
                     method: "PUT",
                     body: JSON.stringify({movieId: movie._id}),
                     headers: {"Content-Type": "application/json"}
                 })
-                    .then((response) => response.json())
                     .then(() => {
                         set((state) => ({
                             watchlist: [...state.watchlist, movie]
@@ -99,7 +104,6 @@ export const useMovieStore = create<MovieStore>()(
                     body: JSON.stringify({movieId: movie._id}),
                     headers: {"Content-Type": "application/json"}
                 })
-                    .then((response) => response.json())
                     .then(() => {
                         set((state) => ({
                             watchlist: state.watchlist.filter((movieB) => movie._id !== movieB._id)
@@ -118,9 +122,23 @@ export const useMovieStore = create<MovieStore>()(
                     ),
                     selectedMovie: movieId === state.selectedMovie?._id
                         ? {...state.selectedMovie, isOnWatchlist}
-                        : state.selectedMovie
+                        : state.selectedMovie,
                 }));
-            }
+            },
+
+            searchMovies(query: string) {
+                console.log("STORE: searchMovies", query)
+                fetch("/api/search", {
+                    method: "POST",
+                    body: JSON.stringify({query}),
+                    headers: {"Content-Type": "application/json"}
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const {shows} = data;
+                        set({searchResults: shows});
+                    });
+            },
         }), {
             name: "movie-store",
             partialize: (state) => ({

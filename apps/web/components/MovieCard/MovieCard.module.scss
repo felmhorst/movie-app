@@ -1,9 +1,9 @@
 .container {
   z-index: 200;
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: 73px;
+  right: 0;
   height: 100%;
   padding: 80px;
   display: flex;
