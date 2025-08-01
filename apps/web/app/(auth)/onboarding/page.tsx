@@ -1,7 +1,6 @@
 "use client";
 
 import {Card} from "@/components/Card/Card";
-import styles from "./page.module.css";
 import {InputButton} from "@/components/Button/InputButton";
 import {Form} from "@/components/Form/Form";
 import {StreamingProviderSelection} from "@/components/StreamingProviderSelection/StreamingProviderSelection";
@@ -15,7 +14,7 @@ export default function Onboarding() {
     }
 
     return (
-        <div className={styles.page}>
+        <>
             <Card>
                 <h1>Which Streaming Providers do you have?</h1>
                 <p>
@@ -32,6 +31,6 @@ export default function Onboarding() {
                         value={"Continue"}/>
                 </Form>
             </Card>
-        </div>
+        </>
     );
 }

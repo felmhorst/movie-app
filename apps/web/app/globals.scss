@@ -8,6 +8,7 @@
 
   --border-radius-md: 8px;
   --box-shadow-md: 0 4px 8px rgba(0, 0, 0, .15);
+  --font-roboto: "Roboto", sans-serif;
 }
 
 @media (prefers-color-scheme: light) {
@@ -33,7 +34,7 @@ html {
 body {
   background: var(--color-background);
   color: var(--color-on-surface);
-  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-family: var(--font-roboto), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

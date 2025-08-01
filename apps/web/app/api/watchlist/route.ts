@@ -3,6 +3,7 @@ import {MOVIE_COLLECTION, WATCHLIST_COLLECTION} from "@/lib/db";
 import {ObjectId} from "mongodb";
 
 export const GET = withAuth(async (request, session) => {
+    console.log("API: GET /watchlist")
     const userId = await session.user.id;
     const movieIds = await WATCHLIST_COLLECTION.find({userId})
         .toArray().then((entries) => entries.map((entry) => new ObjectId(entry.movieId)));
@@ -15,6 +16,7 @@ export const GET = withAuth(async (request, session) => {
 });
 
 export const PUT = withAuth(async (request, session) => {
+    console.log("API: PUT /watchlist")
     const {movieId} = await request.json();
     const userId = await session.user.id;
 
@@ -38,6 +40,7 @@ export const PUT = withAuth(async (request, session) => {
 });
 
 export const DELETE = withAuth(async (request, session) => {
+    console.log("API: DELETE /watchlist")
     const {movieId} = await request.json();
     const userId = await session.user.id;
 

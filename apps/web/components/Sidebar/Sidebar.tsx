@@ -4,7 +4,7 @@ import styles from "./Sidebar.module.css";
 import Link, {LinkProps} from "next/link";
 import {PropsWithChildren} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faHeart, faClockRotateLeft, faChartSimple, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faHeart, faClockRotateLeft, faChartSimple, faUser } from '@fortawesome/free-solid-svg-icons'
 import {usePathname} from "next/navigation";
 import {clsx} from "clsx";
 
@@ -17,7 +17,7 @@ export const Sidebar = () => {
                     href={"/discover"}
                     aria-label={"Discover"}>
                     <FontAwesomeIcon
-                        icon={faHome}
+                        icon={faMagnifyingGlass}
                         size={"lg"}/>
                 </NavLink>
                 <NavLink

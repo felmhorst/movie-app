@@ -10,6 +10,6 @@
 .main {
   position: relative;
   flex: 1 1 auto;
-  padding: 20px 40px;
+  padding: 20px clamp(16px, 3%, 40px);
   overflow-y: scroll;
 }

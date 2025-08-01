@@ -1,29 +1,46 @@
 import {Card} from "@/components/Card/Card";
-import {InputField} from "@/components/InputField/InputField";
 import Link from "next/link";
-import styles from "./page.module.css";
-import {InputButton} from "@/components/Button/InputButton";
-import {Form} from "@/components/Form/Form";
 import {signIn} from "@/auth";
 import {Button} from "@/components/Button/Button";
+import {oauthProviders} from "@/auth.config";
+import {AuthError} from "next-auth";
+import {redirect} from "next/navigation";
 
-// todo: https://authjs.dev/guides/pages/signin
-export default function SignIn() {
+interface SignInProps {
+    searchParams: {
+        callbackUrl: string | undefined;
+    };
+}
+
+export default function SignIn(props: SignInProps) {
+    const {searchParams} = props;
 
     return (
-        <div className={styles.page}>
+        <>
             <Card>
                 <h1>Sign in</h1>
-                <Button onClick={async() => {
-                    "use server";
-                    await signIn("github", {redirectTo: "/discover"});
-                }}>
-                    Sign in with GitHub
-                </Button>
+                {oauthProviders.map((provider) => (
+                    <Button
+                        key={provider.id}
+                        onClick={async() => {
+                            "use server";
+                            try {
+                                await signIn(provider.id, {
+                                    redirectTo: searchParams?.callbackUrl ?? "/discover",
+                                });
+                            } catch (error) {
+                                if (error instanceof AuthError)
+                                    return redirect(`/error?error=${error.type}`)
+                                throw error;
+                            }
+                        }}>
+                        Sign in with {provider.name}
+                    </Button>
+                ))}
             </Card>
             <Link href={"/register"}>
                 Register
             </Link>
-        </div>
+        </>
     );
 }

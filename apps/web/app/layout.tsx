@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import React from "react";
+import {Roboto} from "next/font/google";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
+const roboto = Roboto({
+  variable: "--font-roboto",
+  subsets: ["latin"]
 });
 
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-});
 
 export const metadata: Metadata = {
   title: "Movie App",
@@ -25,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={roboto.variable}>
         {children}
       </body>
     </html>
