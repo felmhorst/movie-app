@@ -1,5 +1,6 @@
 import {Button} from "@/components/Button/Button";
 import {signOut} from "@/auth";
+import {StreamingProviderSelection} from "@/components/StreamingProviderSelection/StreamingProviderSelection";
 
 export default function Profile() {
     return <>
@@ -10,5 +11,7 @@ export default function Profile() {
         }}>
             Sign out
         </Button>
+
+        <StreamingProviderSelection/>
     </>;
 }

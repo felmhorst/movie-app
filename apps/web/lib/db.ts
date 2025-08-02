@@ -33,11 +33,19 @@ if (process.env.NODE_ENV === "development") {
 
 // db & collections
 const DB = client.db("test");
+const USER_COLLECTION = DB.collection("users");
+const SERVICE_COLLECTION = DB.collection("services");
 const MOVIE_COLLECTION = DB.collection("movies");
 const WATCHLIST_COLLECTION = DB.collection("watchlists");
 
 await WATCHLIST_COLLECTION.createIndex({userId: 1, movieId: 1}, {unique: true});
-export {DB, MOVIE_COLLECTION, WATCHLIST_COLLECTION};
+export {
+    DB,
+    USER_COLLECTION,
+    SERVICE_COLLECTION,
+    MOVIE_COLLECTION,
+    WATCHLIST_COLLECTION
+};
 
 // Export a module-scoped MongoClient. By doing this in a
 // separate module, the client can be shared across functions.

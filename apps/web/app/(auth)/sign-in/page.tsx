@@ -12,8 +12,8 @@ interface SignInProps {
     };
 }
 
-export default function SignIn(props: SignInProps) {
-    const {searchParams} = props;
+export default async function SignIn(props: SignInProps) {
+    const searchParams = await props.searchParams;
 
     return (
         <>

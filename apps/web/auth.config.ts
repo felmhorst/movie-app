@@ -1,6 +1,6 @@
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
-import type { NextAuthConfig } from "next-auth";
+import type {NextAuthConfig} from "next-auth";
 import {Provider} from "next-auth/providers";
 
 const providers: Provider[] = [GitHub, Google];
@@ -28,14 +28,21 @@ export default {
         // verifyRequest
     },
     callbacks: {
-        // add user id to the session
+        // add additional properties to the token
         jwt({token, user}) {
             if (user)
                 token.id = user.id;
             return token;
         },
-        session({session, token}) {
+        // add additional properties to the session
+        session({session, token, user}) {
+            if (!session?.user)
+                return session;
             session.user.id = token.id;
+            // if (!user)
+            //     return session;
+            // session.user.country = user.country;
+            // session.user.streamingServices = user.streamingServices;
             return session;
         },
     },
