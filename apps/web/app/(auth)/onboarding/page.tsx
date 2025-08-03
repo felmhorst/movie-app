@@ -3,13 +3,13 @@
 import {Card} from "@/components/Card/Card";
 import {InputButton} from "@/components/Button/InputButton";
 import {Form} from "@/components/Form/Form";
-import {StreamingProviderSelection} from "@/components/StreamingProviderSelection/StreamingProviderSelection";
+import {StreamingServiceSelection} from "@/components/StreamingServiceSelection/StreamingServiceSelection";
 import {useRouter} from "next/navigation";
 
 export default function Onboarding() {
     const router = useRouter();
 
-    function submitStreamingProviders() {
+    function submitStreamingServices() {
         router.push("/discover");
     }
 
@@ -24,8 +24,8 @@ export default function Onboarding() {
                 <Form
                     name={"select-streaming-providers"}
                     autoCapitalize={"none"}
-                    onSubmit={submitStreamingProviders}>
-                    <StreamingProviderSelection/>
+                    onSubmit={submitStreamingServices}>
+                    <StreamingServiceSelection/>
                     <InputButton
                         type={"submit"}
                         value={"Continue"}/>

@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === "development") {
 // db & collections
 const DB = client.db("test");
 const USER_COLLECTION = DB.collection("users");
-const SERVICE_COLLECTION = DB.collection("services");
+const SERVICE_COLLECTION = DB.collection("services-by-country");
 const MOVIE_COLLECTION = DB.collection("movies");
 const WATCHLIST_COLLECTION = DB.collection("watchlists");
 

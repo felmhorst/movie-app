@@ -11,7 +11,7 @@ export const POST = withAuth(async (request, session) => {
     if (!userId)
         return Response.json({error: "Missing session.user.id"}, {status: 400});
 
-    const user = await USER_COLLECTION.updateOne(
+    await USER_COLLECTION.updateOne(
         {_id: new ObjectId(userId)},
         {$set: {country}});
     return Response.json({message: "Success"}, {status: 201});

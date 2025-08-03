@@ -1,33 +1,33 @@
 import {create} from "zustand";
 import {persist} from "zustand/middleware";
-import {Movie} from "@/constants/types";
+import {Show} from "streaming-availability";
 
 // todo: refetch after n minutes
 
 interface RecommendationsStore {
-    recommendations: Movie[];
+    recommendations: Show[];
     isRecommendationsFetched: boolean;
     fetchRecommendations: () => void;
 }
 
 interface WatchlistStore {
-    watchlist: Movie[];
+    watchlist: Show[];
     isWatchlistFetched: boolean;
     fetchWatchlist: () => void;
-    addToWatchlist: (movie: Movie) => void;
-    removeFromWatchlist: (movie: Movie) => void;
+    addToWatchlist: (movie: Show) => void;
+    removeFromWatchlist: (movie: Show) => void;
 }
 
 interface SearchStore {
     query: string;
-    searchResults: Movie[];
+    searchResults: Show[];
     searchMovie: (query: string) => void;
 }
 
 interface MovieDetailsStore {
-    selectedMovie: Movie | null;
+    selectedMovie: Show | null;
     isDetailsOpen: boolean;
-    openMovieDetails: (movie: Movie) => void;
+    openMovieDetails: (show: Show) => void;
     closeMovieDetails: () => void;
 }
 
@@ -50,18 +50,18 @@ export const useMovieStore = create<MovieStore>()(
             selectedMovie: null,
             isDetailsOpen: false,
 
-            openMovieDetails: (movie) => {
-                set({selectedMovie: movie, isDetailsOpen: true});
+            openMovieDetails: (show) => {
+                set({selectedMovie: show, isDetailsOpen: true});
             },
 
             closeMovieDetails: () => {
                 set({selectedMovie: null, isDetailsOpen: false});
             },
 
-            fetchRecommendations() {
+            async fetchRecommendations() {
                 if (get().isRecommendationsFetched)
                     return;
-                fetch("/api/discover", {method: "GET"})
+                await fetch("/api/discover", {method: "GET"})
                     .then((res) => res.json())
                     .then((data) => {
                         const {movies} = data;
@@ -71,10 +71,10 @@ export const useMovieStore = create<MovieStore>()(
                     });
             },
 
-            fetchWatchlist() {
+            async fetchWatchlist() {
                 if (get().isRecommendationsFetched)
                     return;
-                fetch("/api/watchlist", {method: "GET"})
+                await fetch("/api/watchlist", {method: "GET"})
                     .then((response) => response.json())
                     .then((data) => {
                         const {movies} = data;
@@ -84,10 +84,10 @@ export const useMovieStore = create<MovieStore>()(
                     });
             },
 
-            addToWatchlist(movie) {
-                fetch("/api/watchlist", {
+            async addToWatchlist(show) {
+                await fetch("/api/watchlist", {
                     method: "PUT",
-                    body: JSON.stringify({movieId: movie._id}),
+                    body: JSON.stringify({movieId: show._id}),
                     headers: {"Content-Type": "application/json"}
                 })
                     .then(() => {
@@ -98,37 +98,36 @@ export const useMovieStore = create<MovieStore>()(
                     });
             },
 
-            removeFromWatchlist(movie) {
-                fetch("/api/watchlist", {
+            async removeFromWatchlist(show) {
+                await fetch("/api/watchlist", {
                     method: "DELETE",
-                    body: JSON.stringify({movieId: movie._id}),
+                    body: JSON.stringify({movieId: show._id}),
                     headers: {"Content-Type": "application/json"}
                 })
                     .then(() => {
                         set((state) => ({
-                            watchlist: state.watchlist.filter((movieB) => movie._id !== movieB._id)
+                            watchlist: state.watchlist.filter((movieB) => show._id !== movieB._id)
                         }));
-                        get().updateMovieStatus(movie._id, false);
+                        get().updateMovieStatus(show._id, false);
                     });
             },
 
-            updateMovieStatus(movieId, isOnWatchlist) {
+            updateMovieStatus(showId, isOnWatchlist) {
                 set((state) => ({
-                    recommendations: state.recommendations.map((movie) =>
-                        movie._id === movieId ? {...movie, isOnWatchlist} : movie
+                    recommendations: state.recommendations.map((show) =>
+                        show._id === showId ? {...show, isOnWatchlist} : show
                     ),
-                    watchlist: state.watchlist.map((movie) =>
-                        movie._id === movieId ? {...movie, isOnWatchlist} : movie
+                    watchlist: state.watchlist.map((show) =>
+                        show._id === showId ? {...show, isOnWatchlist} : show
                     ),
-                    selectedMovie: movieId === state.selectedMovie?._id
+                    selectedMovie: showId === state.selectedMovie?._id
                         ? {...state.selectedMovie, isOnWatchlist}
                         : state.selectedMovie,
                 }));
             },
 
-            searchMovies(query: string) {
-                console.log("STORE: searchMovies", query)
-                fetch("/api/search", {
+            async searchMovies(query: string) {
+                await fetch("/api/search", {
                     method: "POST",
                     body: JSON.stringify({query}),
                     headers: {"Content-Type": "application/json"}
