@@ -34,16 +34,24 @@ if (process.env.NODE_ENV === "development") {
 // db & collections
 const DB = client.db("test");
 const USER_COLLECTION = DB.collection("users");
-const SERVICE_COLLECTION = DB.collection("services-by-country");
-const MOVIE_COLLECTION = DB.collection("movies");
-const WATCHLIST_COLLECTION = DB.collection("watchlists");
 
+const SERVICE_COLLECTION = DB.collection("services-by-country");
+await SERVICE_COLLECTION.createIndex({countryCode: 1}, {unique: true});
+
+const SHOWS_COLLECTION = DB.collection("shows");
+await SHOWS_COLLECTION.createIndex({id: 1}, {unique: true});
+
+const RECOMMENDATION_COLLECTION = DB.collection("recommendations-by-country");
+
+const WATCHLIST_COLLECTION = DB.collection("watchlists");
 await WATCHLIST_COLLECTION.createIndex({userId: 1, movieId: 1}, {unique: true});
+
 export {
     DB,
     USER_COLLECTION,
     SERVICE_COLLECTION,
-    MOVIE_COLLECTION,
+    SHOWS_COLLECTION,
+    RECOMMENDATION_COLLECTION,
     WATCHLIST_COLLECTION
 };
 

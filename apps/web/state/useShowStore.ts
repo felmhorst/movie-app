@@ -14,28 +14,28 @@ interface WatchlistStore {
     watchlist: Show[];
     isWatchlistFetched: boolean;
     fetchWatchlist: () => void;
-    addToWatchlist: (movie: Show) => void;
-    removeFromWatchlist: (movie: Show) => void;
+    addToWatchlist: (show: Show) => void;
+    removeFromWatchlist: (show: Show) => void;
 }
 
 interface SearchStore {
     query: string;
     searchResults: Show[];
-    searchMovie: (query: string) => void;
+    searchShows: (query: string) => void;
 }
 
-interface MovieDetailsStore {
-    selectedMovie: Show | null;
+interface ShowDetailsStore {
+    selectedShow: Show | null;
     isDetailsOpen: boolean;
-    openMovieDetails: (show: Show) => void;
-    closeMovieDetails: () => void;
+    openShowDetails: (show: Show) => void;
+    closeShowDetails: () => void;
 }
 
-interface MovieStore extends RecommendationsStore, WatchlistStore, SearchStore, MovieDetailsStore {
-    updateMovieStatus: (movieId: string, isOnWatchlist: boolean) => void;
+interface ShowStore extends RecommendationsStore, WatchlistStore, SearchStore, ShowDetailsStore {
+    updateShowStatus: (showId: string, isOnWatchlist: boolean) => void;
 }
 
-export const useMovieStore = create<MovieStore>()(
+export const useShowStore = create<ShowStore>()(
     persist((set, get) => (
         {
             recommendations: [],
@@ -47,14 +47,14 @@ export const useMovieStore = create<MovieStore>()(
             query: "",
             searchResults: [],
 
-            selectedMovie: null,
+            selectedShow: null,
             isDetailsOpen: false,
 
-            openMovieDetails: (show) => {
+            openShowDetails: (show) => {
                 set({selectedMovie: show, isDetailsOpen: true});
             },
 
-            closeMovieDetails: () => {
+            closeShowDetails: () => {
                 set({selectedMovie: null, isDetailsOpen: false});
             },
 
@@ -64,9 +64,9 @@ export const useMovieStore = create<MovieStore>()(
                 await fetch("/api/discover", {method: "GET"})
                     .then((res) => res.json())
                     .then((data) => {
-                        const {movies} = data;
+                        const {shows} = data;
                         set({
-                            recommendations: movies, isRecommendationsFetched: true
+                            recommendations: shows, isRecommendationsFetched: true
                         });
                     });
             },
@@ -77,9 +77,9 @@ export const useMovieStore = create<MovieStore>()(
                 await fetch("/api/watchlist", {method: "GET"})
                     .then((response) => response.json())
                     .then((data) => {
-                        const {movies} = data;
+                        const {shows} = data;
                         set({
-                            watchlist: movies, isWatchlistFetched: true
+                            watchlist: shows, isWatchlistFetched: true
                         });
                     });
             },
@@ -87,46 +87,46 @@ export const useMovieStore = create<MovieStore>()(
             async addToWatchlist(show) {
                 await fetch("/api/watchlist", {
                     method: "PUT",
-                    body: JSON.stringify({movieId: show._id}),
+                    body: JSON.stringify({showId: show.id}),
                     headers: {"Content-Type": "application/json"}
                 })
                     .then(() => {
                         set((state) => ({
-                            watchlist: [...state.watchlist, movie]
+                            watchlist: [...state.watchlist, show]
                         }));
-                        get().updateMovieStatus(movie._id, true);
+                        get().updateShowStatus(show.id, true);
                     });
             },
 
             async removeFromWatchlist(show) {
                 await fetch("/api/watchlist", {
                     method: "DELETE",
-                    body: JSON.stringify({movieId: show._id}),
+                    body: JSON.stringify({showId: show.id}),
                     headers: {"Content-Type": "application/json"}
                 })
                     .then(() => {
                         set((state) => ({
-                            watchlist: state.watchlist.filter((movieB) => show._id !== movieB._id)
+                            watchlist: state.watchlist.filter((otherShow) => show.id !== otherShow.id)
                         }));
-                        get().updateMovieStatus(show._id, false);
+                        get().updateShowStatus(show.id, false);
                     });
             },
 
-            updateMovieStatus(showId, isOnWatchlist) {
+            updateShowStatus(showId, isOnWatchlist) {
                 set((state) => ({
                     recommendations: state.recommendations.map((show) =>
-                        show._id === showId ? {...show, isOnWatchlist} : show
+                        show.id === showId ? {...show, isOnWatchlist} : show
                     ),
                     watchlist: state.watchlist.map((show) =>
-                        show._id === showId ? {...show, isOnWatchlist} : show
+                        show.id === showId ? {...show, isOnWatchlist} : show
                     ),
-                    selectedMovie: showId === state.selectedMovie?._id
+                    selectedMovie: showId === state.selectedMovie?.id
                         ? {...state.selectedMovie, isOnWatchlist}
                         : state.selectedMovie,
                 }));
             },
 
-            async searchMovies(query: string) {
+            async searchShows(query: string) {
                 await fetch("/api/search", {
                     method: "POST",
                     body: JSON.stringify({query}),
@@ -139,7 +139,7 @@ export const useMovieStore = create<MovieStore>()(
                     });
             },
         }), {
-            name: "movie-store",
+            name: "show-store",
             partialize: (state) => ({
                 recommendations: state.recommendations,
                 watchlist: state.watchlist,

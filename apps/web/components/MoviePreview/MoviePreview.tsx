@@ -2,9 +2,8 @@
 
 import styles from "./MoviePreview.module.css";
 import Image from "next/image";
-import {useMovieStore} from "@/state/useMovieStore";
+import {useShowStore} from "@/state/useShowStore";
 import type {Show} from "streaming-availability";
-import type {Movie} from "@/constants/types";
 
 interface MoviePreviewProps {
     movie: Show;
@@ -12,14 +11,12 @@ interface MoviePreviewProps {
 
 export const MoviePreview = (props: MoviePreviewProps) => {
     const {movie} = props;
-    const {openMovieDetails} = useMovieStore();
-
-    // movie.imageSet?.verticalPoster?.w240
+    const {openShowDetails} = useShowStore();
 
     return (
         <button
             className={styles.thumbnail}
-            onClick={() => openMovieDetails(movie)}>
+            onClick={() => openShowDetails(movie)}>
             {movie.imageSet?.verticalPoster?.w360 ? <Image
                 className={styles.image}
                 src={movie.imageSet?.verticalPoster?.w360}

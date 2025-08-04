@@ -1,12 +1,11 @@
 "use client";
 
-import {MoviePreview} from "@/components/MoviePreview/MoviePreview";
-import {MovieSection} from "@/components/MovieSection/MovieSection";
 import {useEffect} from "react";
-import {useMovieStore} from "@/state/useMovieStore";
+import {useShowStore} from "@/state/useShowStore";
+import {ShowManager} from "@/components/ShowManager/ShowManager";
 
 export default function Watchlist() {
-    const {watchlist, fetchWatchlist} = useMovieStore();
+    const {watchlist, fetchWatchlist} = useShowStore();
 
     useEffect(() => {
         fetchWatchlist();
@@ -16,13 +15,7 @@ export default function Watchlist() {
     return (
         <>
             <h1>Watchlist</h1>
-            <MovieSection title={"Kostenlos in deinen Abos"}>
-                {watchlist.map((movie, index) => (
-                    <MoviePreview
-                        key={index}
-                        movie={movie}/>
-                ))}
-            </MovieSection>
+            <ShowManager shows={watchlist}/>
         </>
     );
 }

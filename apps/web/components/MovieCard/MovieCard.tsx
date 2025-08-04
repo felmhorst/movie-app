@@ -6,44 +6,44 @@ import Image from "next/image";
 import {WatchlistButton} from "@/components/WatchlistButton/WatchlistButton";
 import {faTimes} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {useMovieStore} from "@/state/useMovieStore";
+import {useShowStore} from "@/state/useShowStore";
 
 export const MovieCard = () => {
-    const {selectedMovie, isDetailsOpen, closeMovieDetails, addToWatchlist, removeFromWatchlist} = useMovieStore();
+    const {selectedShow, isDetailsOpen, closeShowDetails, addToWatchlist, removeFromWatchlist} = useShowStore();
 
     function handleWatchlist() {
-        if (selectedMovie.isOnWatchlist)
-            removeFromWatchlist(selectedMovie);
+        if (selectedShow.isOnWatchlist)
+            removeFromWatchlist(selectedShow);
         else
-            addToWatchlist(selectedMovie);
+            addToWatchlist(selectedShow);
     }
 
-    if (!selectedMovie || !isDetailsOpen)
+    if (!selectedShow || !isDetailsOpen)
         return null;
     return (
         <section className={styles.container}>
             <div className={styles.card}>
                 <div className={styles.imageContainer}>
-                    {selectedMovie.posterPath ? <Image
+                    {selectedShow.imageSet?.verticalPoster?.w360 ? <Image
                         className={styles.image}
-                        src={selectedMovie.posterPath}
+                        src={selectedShow.imageSet?.verticalPoster?.w360}
                         alt={""}
-                        fill={true}/> : selectedMovie.title}
+                        fill={true}/> : selectedShow.title}
                 </div>
                 <div className={styles.detailsContainer}>
                     <button
                         className={styles.closeButton}
                         aria-label={"close"}
-                        onClick={closeMovieDetails}>
+                        onClick={closeShowDetails}>
                         <FontAwesomeIcon
                             icon={faTimes}
                             size={"lg"}/>
                     </button>
-                    <h1>{selectedMovie.title}</h1>
-                    <p>{selectedMovie.summary}</p>
+                    <h1>{selectedShow.title}</h1>
+                    <p>{selectedShow.overview}</p>
                     <Button>Ansehen</Button>
                     <WatchlistButton
-                        isActive={selectedMovie.isOnWatchlist}
+                        isActive={selectedShow.isOnWatchlist}
                         onClick={handleWatchlist}/>
                 </div>
             </div>

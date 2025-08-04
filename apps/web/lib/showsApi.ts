@@ -1,5 +1,5 @@
-import {Client, Configuration, Country, Service, Show} from "streaming-availability";
-import {MOVIE_COLLECTION, SERVICE_COLLECTION} from "@/lib/db";
+import {Client, Configuration, Country, Show} from "streaming-availability";
+import {SHOWS_COLLECTION, SERVICE_COLLECTION, RECOMMENDATION_COLLECTION} from "@/lib/db";
 
 const RAPID_API_KEY = process.env.RAPID_API_KEY!;
 
@@ -7,13 +7,21 @@ const streamingApiClient = new Client(new Configuration({
     apiKey: RAPID_API_KEY,
 }));
 
-export async function getRecommendedShows(country = "de"): Promise<Show[]> {
-    const shows = await streamingApiClient.showsApi.getTopShows({
-        country: country,
-        service: "netflix",
-        showType: "movie",
+export async function getRecommendedShows(countryCode: string = "de"): Promise<Show[]> {
+    let shows = [];
+    for (const service of ["netflix", "prime", "disney", "apple", "hbo"]) {
+        const showsInService = await streamingApiClient.showsApi.getTopShows({
+            country: countryCode,
+            service
+        });
+        shows.push(...showsInService);
+    }
+    await SHOWS_COLLECTION.insertMany(shows);
+    const showIds = shows.map((show) => show.id);
+    await RECOMMENDATION_COLLECTION.insertOne({
+        countryCode,
+        showIds
     });
-    await MOVIE_COLLECTION.insertMany(shows);
     return shows;
 }
 

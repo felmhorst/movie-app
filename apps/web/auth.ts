@@ -10,10 +10,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     adapter: MongoDBAdapter(client),
     events: {
         async createUser({ user }) {
-            const {id} = user;
+            const userId = user.id;
             // add additional fields on account creation
             await USER_COLLECTION.updateOne(
-                {_id: new ObjectId(id)},
+                {_id: new ObjectId(userId)},
                 {$set: {country: "de", streamingServices: []}});
         },
     },

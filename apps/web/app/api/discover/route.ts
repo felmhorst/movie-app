@@ -1,13 +1,12 @@
 import {withAuth} from "@/lib/withAuth";
-import {MOVIE_COLLECTION} from "@/lib/db";
+import {SHOWS_COLLECTION} from "@/lib/db";
+import {getRecommendedShows} from "@/lib/showsApi";
 
 
 export const GET = withAuth(async (request, session) => {
-    let movies = await MOVIE_COLLECTION.find({}).toArray();
-    // if (movies.length === 0)
-        // await getRecommendedMovies();
-        // get recommended
-        // save recommended
-        // return recommended
-    return Response.json({movies})
+    const count = await SHOWS_COLLECTION.countDocuments();
+    const shows = count === 0
+        ? await getRecommendedShows()
+        : await SHOWS_COLLECTION.find({}).toArray();
+    return Response.json({shows})
 });

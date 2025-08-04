@@ -3,17 +3,16 @@
 import {useEffect} from "react";
 import {MoviePreview} from "@/components/MoviePreview/MoviePreview";
 import {MovieSection} from "@/components/MovieSection/MovieSection";
-import {useMovieStore} from "@/state/useMovieStore";
+import {useShowStore} from "@/state/useShowStore";
 import {Searchbar} from "@/components/Searchbar/Searchbar";
+import {ShowManager} from "@/components/ShowManager/ShowManager";
 
 export default function Discover() {
-    const {recommendations, searchResults, fetchRecommendations} = useMovieStore();
+    const {recommendations, searchResults, fetchRecommendations} = useShowStore();
 
     useEffect(() => {
         fetchRecommendations();
     }, []);
-
-    console.log(searchResults);
 
     return (
         <>
@@ -21,20 +20,14 @@ export default function Discover() {
             {searchResults.length > 0
                 ? (
                     <MovieSection title={"Search Results"}>
-                        {searchResults.map((movie, index) => (
+                        {searchResults.map((show) => (
                             <MoviePreview
-                                key={index}
-                                movie={movie}/>
+                                key={show.id}
+                                movie={show}/>
                         ))}
                     </MovieSection>
                 ) : (
-                    <MovieSection title={"Recommended"}>
-                        {recommendations.map((movie, index) => (
-                            <MoviePreview
-                                key={index}
-                                movie={movie}/>
-                        ))}
-                    </MovieSection>
+                    <ShowManager shows={recommendations}/>
                 )}
         </>
     );
