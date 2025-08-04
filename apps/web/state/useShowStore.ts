@@ -51,11 +51,11 @@ export const useShowStore = create<ShowStore>()(
             isDetailsOpen: false,
 
             openShowDetails: (show) => {
-                set({selectedMovie: show, isDetailsOpen: true});
+                set({selectedShow: show, isDetailsOpen: true});
             },
 
             closeShowDetails: () => {
-                set({selectedMovie: null, isDetailsOpen: false});
+                set({selectedShow: null, isDetailsOpen: false});
             },
 
             async fetchRecommendations() {
@@ -72,8 +72,10 @@ export const useShowStore = create<ShowStore>()(
             },
 
             async fetchWatchlist() {
-                if (get().isRecommendationsFetched)
+                console.log("fetchWatchlist")
+                if (get().isWatchlistFetched)
                     return;
+                console.log("fetchWatchlist - call API")
                 await fetch("/api/watchlist", {method: "GET"})
                     .then((response) => response.json())
                     .then((data) => {
@@ -120,9 +122,9 @@ export const useShowStore = create<ShowStore>()(
                     watchlist: state.watchlist.map((show) =>
                         show.id === showId ? {...show, isOnWatchlist} : show
                     ),
-                    selectedMovie: showId === state.selectedMovie?.id
-                        ? {...state.selectedMovie, isOnWatchlist}
-                        : state.selectedMovie,
+                    selectedShow: showId === state.selectedShow?.id
+                        ? {...state.selectedShow, isOnWatchlist}
+                        : state.selectedShow,
                 }));
             },
 

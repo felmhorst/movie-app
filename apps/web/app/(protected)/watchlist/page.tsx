@@ -8,6 +8,7 @@ export default function Watchlist() {
     const {watchlist, fetchWatchlist} = useShowStore();
 
     useEffect(() => {
+        console.log("useEffect fetchWatchlist")
         fetchWatchlist();
     }, []);
 

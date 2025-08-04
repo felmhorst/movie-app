@@ -10,9 +10,13 @@ interface ShowManagerProps {
 
 export const ShowManager = (props: ShowManagerProps) => {
     const {shows} = props;
-    const {country, streamingServices: subscriptions} = useUserStore();
+    const {country, fetchUser, streamingServices: subscriptions} = useUserStore();
     const [freeShows, setFreeShows] = useState([]);
     const [otherShows, setOtherShows] = useState([]);
+
+    useEffect(() => {
+        fetchUser();
+    }, [])
 
     useEffect(() => {
         const freeShows = shows.filter((show) => {
@@ -24,7 +28,7 @@ export const ShowManager = (props: ShowManagerProps) => {
         });
         setFreeShows(freeShows);
         setOtherShows(shows.filter((show) => !freeShows.includes(show)));
-    }, [shows]);
+    }, [shows, subscriptions]);
 
     return (
         <>

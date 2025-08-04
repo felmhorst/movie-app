@@ -26,10 +26,12 @@ export async function getRecommendedShows(countryCode: string = "de"): Promise<S
 }
 
 export async function searchShowsByTitle(query: string): Promise<Show[]> {
-    return await streamingApiClient.showsApi.searchShowsByTitle({
+    const shows = await streamingApiClient.showsApi.searchShowsByTitle({
         country: "de",
         title: query
     });
+    await SHOWS_COLLECTION.insertMany(shows);
+    return shows;
 }
 
 export async function getCountries(): Promise<Country[]> {

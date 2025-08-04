@@ -2,10 +2,16 @@ import {withAuth} from "@/lib/withAuth";
 import {SHOWS_COLLECTION, WATCHLIST_COLLECTION} from "@/lib/db";
 
 export const GET = withAuth(async (request, session) => {
+    console.log("GET watchlist");
     const userId = await session.user.id;
-    const showsId = await WATCHLIST_COLLECTION.find({userId})
-        .toArray();
-    const shows = await SHOWS_COLLECTION.find({id: {$in: showsId}})
+
+    if (!userId)
+        return Response.json({error: "Missing session.user.id"}, {status: 400});
+
+    const showIds = await WATCHLIST_COLLECTION.find({userId})
+        .toArray().then((watchlist) => (watchlist.map((entry) => entry.showId)));
+    console.log("show ids", showIds);
+    const shows = await SHOWS_COLLECTION.find({id: {$in: showIds}})
         .toArray().then((shows) => shows.map((show) => {
             show.isOnWatchlist = true;
             return show;
@@ -26,14 +32,8 @@ export const PUT = withAuth(async (request, session) => {
     if (!show)
         return Response.json({error: "Show does not exist"}, {status: 404});
 
-    try {
-        await WATCHLIST_COLLECTION.insertOne({userId, showId});
-        return Response.json({message: "Success"}, {status: 201});
-    } catch (error: any) {
-        if (error.code === 11000)
-            return Response.json({error: "Show already on watchlist"}, {status: 409});
-        throw error;
-    }
+    await WATCHLIST_COLLECTION.insertOne({userId, showId});
+    return Response.json({message: "Success"}, {status: 201});
 });
 
 export const DELETE = withAuth(async (request, session) => {

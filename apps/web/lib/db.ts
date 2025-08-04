@@ -44,7 +44,7 @@ await SHOWS_COLLECTION.createIndex({id: 1}, {unique: true});
 const RECOMMENDATION_COLLECTION = DB.collection("recommendations-by-country");
 
 const WATCHLIST_COLLECTION = DB.collection("watchlists");
-await WATCHLIST_COLLECTION.createIndex({userId: 1, movieId: 1}, {unique: true});
+await WATCHLIST_COLLECTION.createIndex({userId: 1, showId: 1}, {unique: true});
 
 export {
     DB,
