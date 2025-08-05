@@ -1,14 +1,10 @@
 import {PropsWithChildren} from "react";
 import {FlexLayout} from "@/components/FlexLayout/FlexLayout";
-import {auth} from "@/auth";
-import {redirect} from "next/navigation";
 
-export default async function AuthLayout(props: PropsWithChildren) {
+
+export default function OnboardingLayout(props: PropsWithChildren) {
     const {children} = props;
-    const session = await auth();
 
-    if (session)
-        redirect("/discover");
     return (
         <FlexLayout>
             {children}

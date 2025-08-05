@@ -1,0 +1,43 @@
+.flex {
+  width: 100%;
+  height: 100vh;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.__direction {
+  &_row {
+    flex-direction: row;
+  }
+  &_column {
+    flex-direction: column;
+  }
+}
+
+.__justify {
+  &_start {
+    justify-content: flex-start;
+  }
+  &_end {
+    justify-content: flex-end;
+  }
+  &_center {
+    justify-content: center;
+  }
+}
+
+.__align {
+  &_start {
+    align-items: flex-start;
+  }
+  &_end {
+    align-items: flex-end;
+  }
+  &_center {
+    align-items: center;
+  }
+}

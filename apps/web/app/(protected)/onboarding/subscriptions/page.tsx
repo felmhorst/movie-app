@@ -1,10 +1,10 @@
 "use client";
 
 import {Card} from "@/components/Card/Card";
-import {InputButton} from "@/components/Button/InputButton";
 import {Form} from "@/components/Form/Form";
 import {StreamingServiceSelection} from "@/components/StreamingServiceSelection/StreamingServiceSelection";
 import {useRouter} from "next/navigation";
+import {Button} from "@/components/Button/Button";
 
 export default function Onboarding() {
     const router = useRouter();
@@ -26,7 +26,8 @@ export default function Onboarding() {
                     autoCapitalize={"none"}
                     onSubmit={submitStreamingServices}>
                     <StreamingServiceSelection/>
-                    <InputButton
+                    <Button
+                        elementType={"input"}
                         type={"submit"}
                         value={"Continue"}/>
                 </Form>

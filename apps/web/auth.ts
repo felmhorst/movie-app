@@ -4,6 +4,7 @@ import client from "./lib/db";
 import authConfig from "./auth.config";
 import {USER_COLLECTION} from "@/lib/db";
 import {ObjectId} from "mongodb";
+import {DEFAULT_COUNTRY} from "@/constants";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     ...authConfig,
@@ -14,7 +15,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             // add additional fields on account creation
             await USER_COLLECTION.updateOne(
                 {_id: new ObjectId(userId)},
-                {$set: {country: "de", streamingServices: []}});
+                {$set: {country: DEFAULT_COUNTRY, streamingServices: []}});
         },
     },
 });

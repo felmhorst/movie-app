@@ -1,0 +1,24 @@
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px 0;
+  padding-top: 16px;
+  border-top: solid 1px var(--color-border);
+  color: var(--color-on-surface-less);
+  align-self: flex-end;
+}
+
+.group {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 40px;
+}
+
+.logo {
+  font-weight: 500;
+  color: var(--color-on-surface);
+}

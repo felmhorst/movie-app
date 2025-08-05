@@ -10,6 +10,8 @@ export const Empty = () => {
                 Add movies to your watchlist to see which ones of these are available in your streaming providers
             </p>
             <Button
+                elementType={"link"}
+                href={"/discover"}
                 theme={"secondary"}
                 width={"hug"}
                 icon={faMagnifyingGlass}>

@@ -52,8 +52,15 @@ a {
 }
 
 h1 {
-  font-size: 1.5em;
   margin-bottom: 16px;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+h2 {
+  margin-bottom: 8px;
+  font-size: 1.25em;
+  font-weight: 500;
 }
 
 p {

@@ -4,11 +4,15 @@ import styles from "./MovieCard.module.css";
 import {Button} from "@/components/Button/Button";
 import Image from "next/image";
 import {WatchlistButton} from "@/components/WatchlistButton/WatchlistButton";
-import {faTimes} from "@fortawesome/free-solid-svg-icons";
+import {faPlay, faTimes} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useShowStore} from "@/state/useShowStore";
+import {useUserStore} from "@/state/useUserStore";
+import {getPreferredStreamingOption} from "@/lib/getPreferredStreamingOption";
+import Link from "next/link";
 
 export const MovieCard = () => {
+    const {country, streamingServices: subscriptions} = useUserStore();
     const {selectedShow, isDetailsOpen, closeShowDetails, addToWatchlist, removeFromWatchlist} = useShowStore();
 
     function handleWatchlist() {
@@ -17,6 +21,12 @@ export const MovieCard = () => {
         else
             addToWatchlist(selectedShow);
     }
+
+    const preferredStreamingOption = getPreferredStreamingOption(
+        selectedShow?.streamingOptions?.[country] ?? [],
+        subscriptions
+    );
+    console.log(preferredStreamingOption);
 
     if (!selectedShow || !isDetailsOpen)
         return null;
@@ -41,7 +51,18 @@ export const MovieCard = () => {
                     </button>
                     <h1>{selectedShow.title}</h1>
                     <p>{selectedShow.overview}</p>
-                    <Button>Ansehen</Button>
+
+                    {preferredStreamingOption && <Button
+                        elementType={"link"}
+                        href={preferredStreamingOption.link}
+                        icon={faPlay}>
+                        {preferredStreamingOption.type === "rent"
+                            ? "Rent"
+                            : preferredStreamingOption.type === "buy"
+                                ? "Buy"
+                                : "Watch"} on {preferredStreamingOption.service.name}
+                    </Button>}
+
                     <WatchlistButton
                         isActive={selectedShow.isOnWatchlist}
                         onClick={handleWatchlist}/>

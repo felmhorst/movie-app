@@ -1,5 +1,6 @@
 import {create} from "zustand";
 import {persist} from "zustand/middleware";
+import {DEFAULT_COUNTRY} from "@/constants";
 
 interface UserStore {
     country: string;
@@ -13,7 +14,7 @@ interface UserStore {
 export const useUserStore = create<UserStore>()(
     persist((set, get) => (
         {
-            country: "de",
+            country: DEFAULT_COUNTRY,
             streamingServices: [],
             isUserFetched: false,
 

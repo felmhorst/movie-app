@@ -1,6 +1,8 @@
 .button {
   width: 100%;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   padding: 8px;
   background-color: var(--color-primary);
   border: none;
@@ -35,5 +37,8 @@
 }
 
 .icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   margin-right: 8px;
 }
