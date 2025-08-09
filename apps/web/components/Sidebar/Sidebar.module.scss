@@ -39,8 +39,13 @@
   cursor: pointer;
   transition: .2s;
 
-  &:hover {
+  &:hover, &:focus-visible {
     color: var(--color-on-surface);
+  }
+
+  &:focus-visible {
+    outline: solid 2px var(--color-primary);
+    outline-offset: 2px;
   }
 
   &__active {

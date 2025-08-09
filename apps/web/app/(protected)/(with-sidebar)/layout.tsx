@@ -10,10 +10,13 @@ export default function WithSidebarLayout(props: PropsWithChildren) {
     return (
         <div className={styles.page}>
             <Sidebar/>
-            <main className={styles.main}>
+            <div className={styles.body}>
                 <MovieCard/>
-                {children}
-            </main>
+                <main className={styles.main}>
+                    {children}
+                </main>
+                <Footer/>
+            </div>
         </div>
     );
 }

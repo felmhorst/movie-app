@@ -6,9 +6,12 @@ import {MovieSection} from "@/components/MovieSection/MovieSection";
 import {useShowStore} from "@/state/useShowStore";
 import {Searchbar} from "@/components/Searchbar/Searchbar";
 import {ShowManager} from "@/components/ShowManager/ShowManager";
+import {EmptyPageContainer} from "@/components/EmptyPageContainer/EmptyPageContainer";
+import {LoadingIndicator} from "@/components/LoadingIndicator/LoadingIndicator";
+import {Empty} from "@/app/(protected)/(with-sidebar)/watchlist/Empty";
 
 export default function Discover() {
-    const {recommendations, searchResults, fetchRecommendations} = useShowStore();
+    const {recommendations, isRecommendationsFetched, searchResults, fetchRecommendations} = useShowStore();
 
     useEffect(() => {
         fetchRecommendations();
@@ -26,8 +29,11 @@ export default function Discover() {
                                 movie={show}/>
                         ))}
                     </MovieSection>
-                ) : (
-                    <ShowManager shows={recommendations}/>
+                ) : (!isRecommendationsFetched
+                    ? <EmptyPageContainer>
+                        <LoadingIndicator/>
+                    </EmptyPageContainer>
+                    : <ShowManager shows={recommendations}/>
                 )}
         </>
     );

@@ -1,0 +1,16 @@
+.page {
+  width: 100%;
+  padding: 32px clamp(16px, 3%, 40px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.main {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

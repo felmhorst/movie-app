@@ -6,9 +6,9 @@ import {EmptyPageContainer} from "@/components/EmptyPageContainer/EmptyPageConta
 export const Empty = () => {
     return (
         <EmptyPageContainer>
-            <h2>You didn't mark any shows as watched yet</h2>
+            <h2>You didn't add any movies to your watchlist yet</h2>
             <p>
-                Mark shows that you watched to list them here.
+                Add movies to your watchlist to see which ones of these are available in your subscriptions.
             </p>
             <Button
                 elementType={"link"}
@@ -16,7 +16,7 @@ export const Empty = () => {
                 theme={"secondary"}
                 width={"hug"}
                 icon={faMagnifyingGlass}>
-                Discover shows
+                Discover movies
             </Button>
         </EmptyPageContainer>
     );

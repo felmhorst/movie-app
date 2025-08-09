@@ -1,13 +1,13 @@
 .footer {
+  flex: 0 0 auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 40px 0;
+  margin: 40px 0 0;
   padding-top: 16px;
   border-top: solid 1px var(--color-border);
   color: var(--color-on-surface-less);
-  align-self: flex-end;
 }
 
 .group {
@@ -21,4 +21,11 @@
 .logo {
   font-weight: 500;
   color: var(--color-on-surface);
+}
+
+.link {
+  transition: .2s;
+  &:hover {
+    color: var(--color-on-surface);
+  }
 }

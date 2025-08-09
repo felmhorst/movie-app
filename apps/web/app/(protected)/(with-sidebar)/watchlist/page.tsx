@@ -3,12 +3,14 @@
 import {useEffect} from "react";
 import {useShowStore} from "@/state/useShowStore";
 import {ShowManager} from "@/components/ShowManager/ShowManager";
+import {Empty} from "./Empty";
+import {LoadingIndicator} from "@/components/LoadingIndicator/LoadingIndicator";
+import {EmptyPageContainer} from "@/components/EmptyPageContainer/EmptyPageContainer";
 
 export default function Watchlist() {
-    const {watchlist, fetchWatchlist} = useShowStore();
+    const {watchlist, isWatchlistFetched, fetchWatchlist} = useShowStore();
 
     useEffect(() => {
-        console.log("useEffect fetchWatchlist")
         fetchWatchlist();
     }, []);
 
@@ -16,7 +18,13 @@ export default function Watchlist() {
     return (
         <>
             <h1>Watchlist</h1>
-            <ShowManager shows={watchlist}/>
+            {!isWatchlistFetched
+                ? <EmptyPageContainer>
+                    <LoadingIndicator/>
+                </EmptyPageContainer>
+                : watchlist.length === 0
+                    ? <Empty/>
+                    : <ShowManager shows={watchlist}/>}
         </>
     );
 }

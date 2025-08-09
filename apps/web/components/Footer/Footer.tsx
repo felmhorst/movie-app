@@ -8,13 +8,20 @@ export const Footer = () => {
                 <Link
                     className={styles.logo}
                     href={"/"}>
-                    movie-app
+                    movie-shelf
                 </Link>
-                <span>Version 1.0.0</span>
             </div>
             <div className={styles.group}>
-                <Link href={"/imprint"}>Impressum</Link>
-                <Link href={"/privacy"}>Datenschutz</Link>
+                <Link
+                    className={styles.link}
+                    href={"/imprint"}>
+                    Imprint
+                </Link>
+                <Link
+                    className={styles.link}
+                    href={"/privacy-policy"}>
+                    Privacy Policy
+                </Link>
             </div>
         </footer>
     );

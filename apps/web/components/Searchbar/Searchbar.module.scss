@@ -48,8 +48,9 @@
   border-radius: 0 100px 100px 0;
   color: var(--color-on-surface-less);
   cursor: pointer;
+  transition: .2s;
 
-  &:hover {
+  &:hover, &:focus-visible {
     color: var(--color-on-surface);
   }
 }

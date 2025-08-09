@@ -13,9 +13,15 @@
   opacity: .8;
   transition: .2s;
   font-size: 1em;
+  outline: none;
 
-  &:hover {
+  &:hover, &:focus-visible {
     opacity: 1;
+  }
+
+  &:focus-visible {
+    outline: solid 2px var(--color-primary);
+    outline-offset: 2px;
   }
 
   &__theme {
